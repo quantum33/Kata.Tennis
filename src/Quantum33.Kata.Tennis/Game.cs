@@ -48,7 +48,7 @@
             ? Player2
             : Player1;
 
-        private void SetWinnerOfTheGame(Player winner)
+        internal void SetWinnerOfTheGame(Player winner)
         {
             winner.WinsTheGame();
 

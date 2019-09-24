@@ -43,6 +43,17 @@ namespace Quantum33.Kata.Tennis
                 && playerHaveMinimumOfTwoGamesOfDifference();
         }
 
+        public bool TryGetWinner(out Player player)
+        {
+            player = null;
+            if (!IsOver()) return false;
+
+            player = Player1.NumberOfWinGames > Player2.NumberOfWinGames
+                ? Player1
+                : Player2;
+            return true;
+        }
+
         private (Player winner, Player loser) GetWinnerAndLoserOfThePoint()
         {
             return new Random().Next(0, 100) < 50

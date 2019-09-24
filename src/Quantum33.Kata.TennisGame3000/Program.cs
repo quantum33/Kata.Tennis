@@ -13,7 +13,11 @@ namespace Quantum33.Kata.TennisGame3000
 
             tennisMatch.Play();
 
-            Console.ReadLine();
+            if (tennisMatch.TryGetWinner(out Player winnerOfTheMatch))
+            {
+                Console.WriteLine();
+                Console.WriteLine($">>>>> {winnerOfTheMatch.Name} wins the match!!!!!");
+            }
         }
     }
 }

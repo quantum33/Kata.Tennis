@@ -54,7 +54,6 @@ namespace Tests
             Assert.AreEqual(1, game.Player1.NumberOfWinGames);
             Assert.AreEqual(0, game.Player1.Score.CurrentValue);
             Assert.AreEqual(0, game.Player2.Score.CurrentValue);
-
         }
 
         [Test]
@@ -85,5 +84,21 @@ namespace Tests
             Assert.IsFalse(game.Player2.HasAdvantage);
         }
 
+        [Test]
+        public void SetWinnerOfTheGame_WithPlayer1HasAScoreOf40_WithPlayer1WinsTheGame_WithPlayer2HasAScoreOf15_ShouldPlayer1HaveANumberOf1WinGamesAndBothPlayersScoresAreSetToZero()
+        {
+            var game = new Game(new Player("Player 1"), new Player("Player 2"));
+
+            game.Player1.NumberOfWinGames = 0;
+
+            game.Player1.Score.SetCurrentValueTo(40);
+            game.Player2.Score.SetCurrentValueTo(15);
+
+            game.SetWinnerOfTheGame(game.Player1);
+
+            Assert.AreEqual(1, game.Player1.NumberOfWinGames);
+            Assert.AreEqual(0, game.Player1.Score.CurrentValue);
+            Assert.AreEqual(0, game.Player2.Score.CurrentValue);
+        }
     }
 }
