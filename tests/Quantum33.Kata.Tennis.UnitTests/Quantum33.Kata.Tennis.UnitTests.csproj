@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Quantum33.Kata.Tennis.csproj" />
+    <ProjectReference Include="..\..\src\Quantum33.Kata.Tennis\Quantum33.Kata.Tennis.csproj" />
   </ItemGroup>
 
 </Project>

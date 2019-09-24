@@ -1,12 +1,13 @@
-﻿using System;
-
-namespace Quantum33.Kata.Tennis
+﻿namespace Quantum33.Kata.Tennis
 {
+
     public class Game
     {
         public Player Player1 { get; }
 
         public Player Player2 { get; }
+
+        public bool IsFinished { get; private set; } = false;
 
         public Game(Player player1, Player player2)
         {
@@ -19,7 +20,9 @@ namespace Quantum33.Kata.Tennis
             && Player1.Score.CurrentValue == Player2.Score.CurrentValue
             && !OneOfThePlayersHasAdvantage();
 
-        public void Play(Player playerToScoreUp)
+        
+
+        public void PlayTheBall(Player playerToScoreUp)
         {
             if (IsInDeuce())
             {
@@ -36,7 +39,7 @@ namespace Quantum33.Kata.Tennis
             }
             else
             {
-                ManageCurrentSet(playerToScoreUp);
+                ManageCurrentGame(playerToScoreUp);
             }
         }
 
@@ -45,12 +48,14 @@ namespace Quantum33.Kata.Tennis
             ? Player2
             : Player1;
 
-        private void ManageCurrentSet(Player winner)
+        private void ManageCurrentGame(Player winner)
         {
-            winner.WinsTheSet();
+            winner.WinsTheGame();
 
             Player loser = GetOtherPlayer(winner);
-            loser.LoseTheSet();
+            loser.LoseTheGame();
+
+            IsFinished = true;
         }
 
         private bool OneOfThePlayersHasAdvantage()
@@ -80,3 +85,8 @@ namespace Quantum33.Kata.Tennis
         }
     }
 }
+
+////public static class Constants
+////{
+////    public int NumberOfSetsToWinTheMatch = 
+////}
