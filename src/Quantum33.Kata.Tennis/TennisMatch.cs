@@ -15,20 +15,22 @@ namespace Quantum33.Kata.Tennis
             while(!IsOver())
             {
                 var game = new Game(Player1, Player2);
+                Console.WriteLine();
+                Console.WriteLine("Playing....");
                 (Player winner, Player loser) = GetWinnerAndLoserOfThePoint();
 
                 Console.WriteLine($"{winner.Name} wins the point");
 
                 while (!game.IsFinished)
                 {
-                    game.PlayTheBall(winner);
+                    game.PlayerToScoreUp(winner);
 
                     if (!game.IsFinished)
                     {
                         LogScores();
                     }
                 }
-                LogPlayerWinGames();
+                LogPlayersWinGames();
             }
         }
 
@@ -59,18 +61,16 @@ namespace Quantum33.Kata.Tennis
             }
         }
 
-        private void LogPlayerWinGames()
+        private void LogPlayersWinGames()
         {
+            Action<Player> logWinGames = 
+                (player) => Console.WriteLine($"{player.Name}: {player.NumberOfWinGames}");
+
             Console.WriteLine("-----------------------------------------");
             Console.WriteLine("Win games:");
-            _logWinGames(Player1);
-            _logWinGames(Player2);
+            logWinGames(Player1);
+            logWinGames(Player2);
             Console.WriteLine("-----------------------------------------");
-
-            void _logWinGames(Player player)
-            {
-                Console.WriteLine($"{player.Name}: {player.NumberOfWinGames}");
-            }
         }
     }
 }

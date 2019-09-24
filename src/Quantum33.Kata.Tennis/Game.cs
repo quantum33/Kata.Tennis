@@ -22,24 +22,24 @@
 
         
 
-        public void PlayTheBall(Player playerToScoreUp)
+        public void PlayerToScoreUp(Player winner)
         {
             if (IsInDeuce())
             {
-                playerToScoreUp.Score.TryScoreUp();
-                playerToScoreUp.HasAdvantage = true;
+                winner.Score.TryScoreUp();
+                winner.HasAdvantage = true;
             }
-            else if (TryBackToDeuce(playerToScoreUp))
+            else if (TryBackToDeuce(winner))
             {
                 // the game is back to deuce
             }
-            else if (playerToScoreUp.Score.TryScoreUp())
+            else if (winner.Score.TryScoreUp())
             {
                 // score up
             }
             else
             {
-                ManageCurrentGame(playerToScoreUp);
+                SetWinnerOfTheGame(winner);
             }
         }
 
@@ -48,7 +48,7 @@
             ? Player2
             : Player1;
 
-        private void ManageCurrentGame(Player winner)
+        private void SetWinnerOfTheGame(Player winner)
         {
             winner.WinsTheGame();
 
