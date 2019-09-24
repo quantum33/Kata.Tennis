@@ -6,6 +6,17 @@
 
         public Score Score { get; private set; } = new Score();
 
-        public bool HasAdvantage { get; set; } = false;            
+        public bool HasAdvantage { get; set; } = false;        
+        
+        public void WinsTheSet()
+        {
+            NumberOfSets++;
+            Score.Reset();
+        }
+
+        public void LoseTheSet()
+        {
+            Score.Reset();
+        }
     }
 }

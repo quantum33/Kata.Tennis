@@ -36,15 +36,21 @@ namespace Quantum33.Kata.Tennis
             }
             else
             {
-                IncrementNumberOfSetsFor(playerToScoreUp);
+                ManageCurrentSet(playerToScoreUp);
             }
         }
 
-        private void IncrementNumberOfSetsFor(Player playerToScoreUp)
+        private Player GetOtherPlayer(Player identifiedPlayer)
+            => identifiedPlayer == Player1
+            ? Player2
+            : Player1;
+
+        private void ManageCurrentSet(Player winner)
         {
-            playerToScoreUp.NumberOfSets++;
-            Player1.Score.Reset();
-            Player2.Score.Reset();
+            winner.WinsTheSet();
+
+            Player loser = GetOtherPlayer(winner);
+            loser.LoseTheSet();
         }
 
         private bool OneOfThePlayersHasAdvantage()
@@ -56,17 +62,15 @@ namespace Quantum33.Kata.Tennis
             return false;
         }
 
-        private bool TryBackToDeuce(Player playerToScoreUp)
+        private bool TryBackToDeuce(Player toScoreUp)
         {
             if (IsInDeuce())
             {
                 return false;
             }
 
-            Player other = playerToScoreUp == Player1
-                ? Player2
-                : Player1;
-            if (playerToScoreUp.Score.CurrentValue == 40 && other.HasAdvantage)
+            Player other = GetOtherPlayer(toScoreUp);
+            if (toScoreUp.Score.CurrentValue == 40 && other.HasAdvantage)
             {
                 Player1.HasAdvantage = false;
                 Player2.HasAdvantage = false;
