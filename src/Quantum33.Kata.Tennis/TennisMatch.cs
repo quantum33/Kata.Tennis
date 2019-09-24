@@ -6,6 +6,12 @@ namespace Quantum33.Kata.Tennis
 {
     public class TennisMatch
     {
+        public TennisMatch(Action<string> logMethod = null)
+        {
+            ////LogMethod = logMethod ?? throw new ArgumentNullException(nameof(logMethod));
+            LogMethod = logMethod ?? _defaultLogMethod;
+        }
+
         public Player Player1 { get; } = new Player("Player 1");
 
         public Player Player2 { get; } = new Player("Player 2");
@@ -15,11 +21,11 @@ namespace Quantum33.Kata.Tennis
             while(!IsOver())
             {
                 var game = new Game(Player1, Player2);
-                Console.WriteLine();
-                Console.WriteLine("Playing....");
+                LogMethod("");
+                LogMethod("Playing....");
                 (Player winner, Player loser) = GetWinnerAndLoserOfThePoint();
 
-                Console.WriteLine($"{winner.Name} wins the point");
+                LogMethod($"{winner.Name} wins the point");
 
                 while (!game.IsFinished)
                 {
@@ -68,20 +74,24 @@ namespace Quantum33.Kata.Tennis
 
             void _logScoreFor(Player player)
             {
-                Console.WriteLine($"{player.Name}: {player.Score.CurrentValue}");
+                LogMethod($"{player.Name}: {player.Score.CurrentValue}");
             }
         }
 
         private void LogPlayersWinGames()
         {
             Action<Player> logWinGames = 
-                (player) => Console.WriteLine($"{player.Name}: {player.NumberOfWinGames}");
+                (player) => LogMethod($"{player.Name}: {player.NumberOfWinGames}");
 
-            Console.WriteLine("-----------------------------------------");
-            Console.WriteLine("Win games:");
+            LogMethod("-----------------------------------------");
+            LogMethod("Win games:");
             logWinGames(Player1);
             logWinGames(Player2);
-            Console.WriteLine("-----------------------------------------");
+            LogMethod("-----------------------------------------");
         }
+
+        public Action<string> LogMethod { get; }
+
+        private Action<string> _defaultLogMethod = (message) => Console.WriteLine(message);
     }
 }
