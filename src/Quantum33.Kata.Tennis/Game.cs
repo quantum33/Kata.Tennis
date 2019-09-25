@@ -1,6 +1,5 @@
 ﻿namespace Quantum33.Kata.Tennis
 {
-
     public class Game
     {
         public Player Player1 { get; }
@@ -19,8 +18,6 @@
             Player1.Score.CurrentValue == 40
             && Player1.Score.CurrentValue == Player2.Score.CurrentValue
             && !OneOfThePlayersHasAdvantage();
-
-        
 
         public void PlayerToScoreUp(Player winner)
         {

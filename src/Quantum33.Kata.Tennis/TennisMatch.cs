@@ -8,7 +8,6 @@ namespace Quantum33.Kata.Tennis
     {
         public TennisMatch(Action<string> logMethod = null)
         {
-            ////LogMethod = logMethod ?? throw new ArgumentNullException(nameof(logMethod));
             LogMethod = logMethod ?? _defaultLogMethod;
         }
 
@@ -42,8 +41,11 @@ namespace Quantum33.Kata.Tennis
 
         internal bool IsOver()
         {
-            Func<Player, bool> playerHasAMinimumOfSixWinGames = (player) => player.NumberOfWinGames >= Constants.NumberOfSetsToWinTheMatch;
-            Func<bool> playerHaveMinimumOfTwoGamesOfDifference = () => Math.Abs(Player1.NumberOfWinGames - Player2.NumberOfWinGames) >= 2;
+            Func<Player, bool> playerHasAMinimumOfSixWinGames = 
+                (player) => player.NumberOfWinGames >= Constants.NumberOfSetsToWinTheMatch;
+
+            Func<bool> playerHaveMinimumOfTwoGamesOfDifference =
+                () => Math.Abs(Player1.NumberOfWinGames - Player2.NumberOfWinGames) >= 2;
 
             return (playerHasAMinimumOfSixWinGames(Player1) || playerHasAMinimumOfSixWinGames(Player2))
                 && playerHaveMinimumOfTwoGamesOfDifference();
@@ -92,6 +94,7 @@ namespace Quantum33.Kata.Tennis
 
         public Action<string> LogMethod { get; }
 
-        private Action<string> _defaultLogMethod = (message) => Console.WriteLine(message);
+        private readonly Action<string> _defaultLogMethod =
+            (message) => Console.WriteLine(message);
     }
 }
